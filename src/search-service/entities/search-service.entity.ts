@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
-import { ListaCalificacion } from "./lista-calificacion.entity";
-import { ListaRestriccion } from "./lista-restricciom.entity";
+import { Calificacion } from "./lista-calificacion.entity";
+import { Restriccion } from "./lista-restricciom.entity";
 
 @Schema()
 export class SearchService extends Document {
@@ -27,12 +27,12 @@ export class SearchService extends Document {
     })
     correo: string
 
-    @Prop([ListaCalificacion])
-    lista_calificacion: ListaCalificacion[]
+    @Prop({ type: [Calificacion], default: [] })
+    lista_calificacion: Calificacion[]
 
-    @Prop([ListaRestriccion])
-    lista_restriccion: ListaRestriccion[]
-
+    @Prop({ type: [Restriccion], default: [] })
+    lista_restriccion: Restriccion[]
+    
 }
 
 export const SearchServiceSchema = SchemaFactory.createForClass(SearchService)

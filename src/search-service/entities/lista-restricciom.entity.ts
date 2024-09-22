@@ -1,7 +1,8 @@
-import { Prop, Schema } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
-export class ListaRestriccion extends Document {
+@Schema()
+export class Restriccion {
 
     @Prop()
     uuid_restriccion: string
@@ -15,3 +16,6 @@ export class ListaRestriccion extends Document {
     @Prop()
     fecha_creacion: string
 }
+
+
+export const RestriccionSchema = SchemaFactory.createForClass(Restriccion)

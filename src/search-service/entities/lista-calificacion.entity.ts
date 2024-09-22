@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
-export class ListaCalificacion extends Document {
+@Schema()
+export class Calificacion {
     
     @Prop()
     uuid_calificacion: string
@@ -24,3 +25,6 @@ export class ListaCalificacion extends Document {
     comentario: string
     
 }
+
+
+export const CalificacionSchema = SchemaFactory.createForClass(Calificacion)

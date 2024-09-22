@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { SearchServiceService } from './search-service.service';
 import { CreateSearchDto } from './dto/create-search-service.dto';
-import { UpdateSearchByGradeDto } from './dto/update-search-grade.dto';
-import { UpdateSearchByRestrictionDto } from './dto/update-search-restriction.dto';
+import { InsertSearchByGradeDto } from './dto/update-search-grade.dto';
+import { InsertSearchByRestrictionDto } from './dto/update-search-restriction.dto';
 
 @Controller('search')
 export class SearchServiceController {
@@ -19,19 +19,43 @@ export class SearchServiceController {
     return this.searchServiceService.searchAll();
   }
 
-  @Get('/estudiante/:termino')
-  searchByEstudiante(@Param('termino') termino: string) {
-    return this.searchServiceService.searchByEstudiante(termino);
+  @Get('/searchEstudiante/:termino')
+  searchStudent(@Param('termino') searchTerm: string) {
+    return this.searchServiceService.searchStudent(searchTerm);
   }
 
-  @Patch('/updateCalificacion')
-  updateGradeSearch(@Body() updateGradeSearchDto: UpdateSearchByGradeDto) {
-    return this.searchServiceService.updateGradeSearch(updateGradeSearchDto);
+  @Get('/searchRestriccion/:termino')
+  searchRestriction(@Param('termino') searchTerm: string) {
+    return this.searchServiceService.searchRestriction(searchTerm)
+  }
+
+  @Get('/searchCalificacion')
+  async findStudentsByGradeRange(
+  @Query('min') min?: number,
+  @Query('max') max?: number
+  ) {
+    return this.searchServiceService.getStudentsByGradeRange(min, max);
+  }
+
+  @Patch('/insertCalificacion')
+  insertGradeSearch(@Body() insertGradeSearchDto: InsertSearchByGradeDto) {
+    return this.searchServiceService.insertGradeSearch(insertGradeSearchDto);
+  }
+
+  @Patch('/insertRestriccion')
+  insertRestrictionSearch(@Body() insertRestrictionSearchDto: InsertSearchByRestrictionDto ){
+    return this.searchServiceService.insertRestrictionSearch(insertRestrictionSearchDto)
   }
 
   @Patch('/updateRestriccion')
-  updateRestrictionSearch(@Body() updateRestrictionSearchDto: UpdateSearchByRestrictionDto ){
+  updateRestrictionSearch(@Body() updateRestrictionSearchDto: InsertSearchByRestrictionDto) {
     return this.searchServiceService.updateRestrictionSearch(updateRestrictionSearchDto)
   }
+
+  @Patch('/updateCalificacion')
+  updateGradeSearch(@Body() updateGradeSearchDto: InsertSearchByGradeDto) {
+    return this.searchServiceService.updateGradeSearch(updateGradeSearchDto)
+  }
+  
 
 }

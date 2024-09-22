@@ -1,6 +1,6 @@
 import { IsNumber, IsString, Max, Min } from "class-validator";
 
-export class UpdateSearchByGradeDto {
+export class InsertSearchByGradeDto {
 
     @IsString()
     uuid_estudiante: string

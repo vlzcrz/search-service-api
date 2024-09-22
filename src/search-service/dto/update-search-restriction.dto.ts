@@ -1,6 +1,6 @@
 import { IsBoolean, IsNumber, IsString, Max, Min } from "class-validator";
 
-export class UpdateSearchByRestrictionDto {
+export class InsertSearchByRestrictionDto {
 
     @IsString()
     uuid_estudiante: string
