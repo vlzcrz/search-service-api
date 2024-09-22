@@ -1,0 +1,12 @@
+services:
+  mongo:
+    image: mongo:7-jammy
+    restart: always
+    environment:
+      MONGODB_DATABASE: ${DB_NAME}
+      MONGODB_USERNAME: ${DB_USERNAME}
+      MONGODB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo:/data/db
