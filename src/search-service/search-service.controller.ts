@@ -3,6 +3,7 @@ import { SearchServiceService } from './search-service.service';
 import { CreateSearchDto } from './dto/create-search-service.dto';
 import { InsertSearchByGradeDto } from './dto/update-search-grade.dto';
 import { InsertSearchByRestrictionDto } from './dto/update-search-restriction.dto';
+import { UpdateSearchStudentDto } from './dto/update-search-estudiante.dto';
 
 @Controller('search')
 export class SearchServiceController {
@@ -57,5 +58,8 @@ export class SearchServiceController {
     return this.searchServiceService.updateGradeSearch(updateGradeSearchDto)
   }
   
-
+  @Patch('/updateEstudiante')
+  updateEstudianteSearch(@Body() updateStudentSearchDto: UpdateSearchStudentDto) {
+    return this.searchServiceService.updateStudentSearch(updateStudentSearchDto)
+  }
 }

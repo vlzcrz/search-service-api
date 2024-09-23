@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SearchService, SearchServiceSchema } from './entities/search-service.entity';
 import { InsertSearchByRestrictionDto } from './dto/update-search-restriction.dto';
+import { UpdateSearchStudentDto } from './dto/update-search-estudiante.dto';
 
 @Injectable()
 export class SearchServiceService {
@@ -240,4 +241,34 @@ export class SearchServiceService {
     return updatedSearch
   }
 
+  async updateStudentSearch(updateStudentSearch: UpdateSearchStudentDto) {
+
+    const updateFields: any = {};
+    if (updateStudentSearch.nombre) {
+      updateFields.nombre = updateStudentSearch.nombre;
+    }
+    if (updateStudentSearch.apellido) {
+      updateFields.apellido = updateStudentSearch.apellido;
+    }
+    if (updateStudentSearch.correo) {
+      updateFields.correo = updateStudentSearch.correo;
+    }
+
+    const updatedSearch = await this.SearchServiceModel.findOneAndUpdate(
+      {
+        uuid_estudiante: updateStudentSearch.uuid_estudiante,
+      },
+      {
+        $set: updateFields
+      },
+      {
+        new: true,
+      }
+    )
+
+    if(!updatedSearch)
+      throw new NotFoundException('No se encontro un documento con el uuid_estudiante y el uuid_calificacion especificada')
+
+    return updatedSearch
+  }
 }
